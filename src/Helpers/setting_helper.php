@@ -11,7 +11,7 @@ if (! function_exists('setting')) {
      * @return         array|bool|float|int|object|Settings|string|void|null
      * @phpstan-return ($key is null ? Settings : ($value is null ? array|bool|float|int|object|string|null : void))
      */
-    function setting(?string $key = null, $value = null)
+    function setting(?string $key = null, $value = null, ?string $context = null)
     {
         /** @var Settings $setting */
         $setting = service('settings');
@@ -22,10 +22,10 @@ if (! function_exists('setting')) {
 
         // Getting the value?
         if (count(func_get_args()) === 1) {
-            return $setting->get($key);
+            return $setting->get($key, $context);
         }
 
         // Setting the value
-        $setting->set($key, $value);
+        $setting->set($key, $value, $context);
     }
 }
